@@ -1,0 +1,12 @@
+@use "../styles/utils/" as *;
+
+.container {
+  @include container;
+  padding-block-start: var(--space-500);
+  display: grid;
+  justify-items: center;
+}
+
+.logo {
+  width: auto;
+}

@@ -1,0 +1,124 @@
+@use "variables" as *;
+@use "sass:map";
+
+/* Media Queries */
+
+@mixin mq($breakpoint) {
+  @if $breakpoint == s {
+    @media (width <= 40em) {
+      @content;
+    }
+  } @else if $breakpoint == m {
+    @media (width <= 60em) {
+      @content;
+    }
+  }
+}
+
+/* Typography */
+
+$preset-styles: (
+  "l": (
+    font-size: var(--space-750),
+    font-weight: var(--font-extra-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "1-mobile": (
+    font-size: var(--space-375),
+    font-weight: var(--font-extra-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "2": (
+    font-size: var(--space-500),
+    font-weight: var(--font-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "2-mobile": (
+    font-size: var(--space-300),
+    font-weight: var(--font-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "3": (
+    font-size: var(--space-375),
+    font-weight: var(--font-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "3-mobile": (
+    font-size: var(--space-275),
+    font-weight: var(--font-bold),
+    line-height: 1.1,
+    letter-spacing: -1px,
+  ),
+  "4": (
+    font-size: var(--space-300),
+    font-weight: var(--font-medium),
+    line-height: 1.2,
+    letter-spacing: -0.5px,
+  ),
+  "4-mobile": (
+    font-size: var(--space-250),
+    font-weight: var(--font-medium),
+    line-height: 1.2,
+    letter-spacing: -0.5px,
+  ),
+  "5-extrabold": (
+    font-size: var(--space-250),
+    font-weight: var(--font-extra-bold),
+    line-height: 1.1,
+    letter-spacing: -0.3px,
+  ),
+  "5": (
+    font-size: var(--space-250),
+    font-weight: var(--font-medium),
+    line-height: 1.1,
+    letter-spacing: -0.5px,
+  ),
+  "6": (
+    font-size: var(--space-225),
+    font-weight: var(--font-medium),
+    line-height: 1.2,
+    letter-spacing: 0px,
+  ),
+  "6-mobile": (
+    font-size: var(--space-175),
+    font-weight: var(--font-medium),
+    line-height: 1.2,
+    letter-spacing: 0px,
+  ),
+  "7": (
+    font-size: var(--space-150),
+    font-weight: var(--font-regular),
+    line-height: 1.2,
+    letter-spacing: -0.2px,
+  ),
+);
+
+@mixin preset($n) {
+  $preset: map.get($preset-styles, $n);
+
+  @if $preset {
+    font-family: map.get($preset, font-family);
+    font-size: map.get($preset, font-size);
+    font-weight: map.get($preset, font-weight);
+    line-height: map.get($preset, line-height);
+    letter-spacing: map.get($preset, letter-spacing);
+  }
+}
+
+@mixin container {
+  --padding-inline: var(--space-500);
+  width: calc(100% - (var(--padding-inline) * 2));
+  max-width: 56rem;
+  margin-inline: auto;
+  box-sizing: content-box;
+  padding-inline: var(--padding-inline);
+
+  @include mq(s) {
+    --padding-inline: var(--space-300);
+  }
+}
