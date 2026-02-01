@@ -1,13 +1,42 @@
 @use "../styles/utils/" as *;
 
 .form {
+  --width: 28.75rem;
   margin-block-start: var(--space-600);
-  width: min(100%, 28.75rem);
+  width: min(100%, var(--width));
   display: grid;
   gap: var(--space-300);
+
+  @include mq(m) {
+    --width: 32.625rem;
+    margin-block-start: var(--space-500);
+  }
 }
 
-.submit-button {
+.heading {
+  @include preset("1");
+  color: var(--c-white);
+  text-align: center;
+  margin-top: var(--space-750);
+
+  @include mq(s) {
+    @include preset("1-mobile");
+    margin-top: var(--space-500);
+  }
+}
+
+.subheading {
+  @include preset("4");
+  color: var(--c-neutral-300);
+  text-align: center;
+  margin-top: var(--space-250);
+
+  @include mq(s) {
+    @include preset("4-mobile");
+  }
+}
+
+.submit {
   display: inline-block;
   height: var(--space-675);
   width: 100%;

@@ -10,11 +10,11 @@ interface PassedProps {
 
 const Container = ({ children }: PassedProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles["container"]}>
       <img
         src="/assets/images/logo-full.svg"
         alt="Coding Conf Logo"
-        className={styles.logo}
+        className={styles["logo"]}
       />
       {children}
     </div>

@@ -2,11 +2,15 @@
 
 .container {
   @include container;
-  padding-block-start: var(--space-500);
+  padding-block: var(--space-500) var(--space-1400);
   display: grid;
   justify-items: center;
 }
 
 .logo {
   width: auto;
+
+  @include mq(s) {
+    height: var(--space-300);
+  }
 }

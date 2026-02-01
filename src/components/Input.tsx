@@ -1,6 +1,9 @@
 import * as React from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
+import InputError from "./InputError";
 import styles from "./Input.module.scss";
+
+// TYPINGS
 
 type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -12,9 +15,14 @@ type InputProps = Omit<
   error?: string;
 };
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, id, registration, error, className, ...rest }, forwardedRef) => {
+// COMPONENT
+
+const InputField = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ label, id, registration, error, ...rest }, forwardedRef) => {
     const { ref: rhfRef, ...reg } = registration;
+
+    const errorId = `${id}-feedback`;
+    const inputStyleCss = error ? "input-error" : "input";
 
     return (
       <div className={styles["form-control"]}>
@@ -25,7 +33,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </label>
         <input
           id={id}
-          className={[styles["input"], className].filter(Boolean).join(" ")}
+          className={styles[inputStyleCss]}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           {...reg}
           {...rest}
           ref={(el) => {
@@ -34,8 +44,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             else if (forwardedRef) forwardedRef.current = el;
           }}
         />
-        {error && <p className={styles["error"]}>{error}</p>}
+        {error && <InputError id={errorId}>{error}</InputError>}
       </div>
     );
-  }
+  },
 );
+
+// EXPORT
+
+export default InputField;

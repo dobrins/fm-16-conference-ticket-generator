@@ -1,18 +1,36 @@
+import { useState } from "react";
+import type { FormFields } from "../validation/ticketGenerator.schema";
 import Form from "./Form";
-import styles from "./TicketGenerator.module.scss";
+import Ticket from "./Ticket";
 
 // COMPONENT
 
 const TicketGenerator = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [ticketData, setTicketData] = useState<FormFields>({
+    name: "",
+    email: "",
+    github: "",
+    avatar: null,
+  });
+
+  const handleSubmit = (data: FormFields) => {
+    setTicketData(data);
+    setIsSubmitted(true);
+  };
+
   return (
     <>
-      <h1 className={styles.title}>
-        Your Journey to Coding Conf 2025 Starts Here!
-      </h1>
-      <h2 className={styles.subtitle}>
-        Secure your spot at next year's biggest coding conference.
-      </h2>
-      <Form />
+      {isSubmitted ? (
+        <Ticket
+          name={ticketData.name}
+          email={ticketData.email}
+          github={ticketData.github}
+          avatar={ticketData.avatar!}
+        />
+      ) : (
+        <Form onDataSubmit={handleSubmit} />
+      )}
     </>
   );
 };

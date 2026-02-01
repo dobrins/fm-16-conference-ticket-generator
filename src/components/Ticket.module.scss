@@ -1,0 +1,204 @@
+@use "../styles/utils/" as *;
+
+.heading {
+  composes: heading from "./Form.module.scss";
+  @include preset("1");
+  overflow-wrap: anywhere;
+
+  @include mq(s) {
+    @include preset("1-mobile");
+  }
+}
+
+.subheading {
+  composes: subheading from "./Form.module.scss";
+  @include preset("4");
+  max-width: 31rem;
+
+  @include mq(s) {
+    @include preset("4-mobile");
+  }
+}
+
+.decoration {
+  background-image: linear-gradient(
+    to right,
+    var(--c-orange-500) 0%,
+    var(--c-white) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+.email {
+  color: var(--c-orange-500);
+}
+
+.ticket {
+  aspect-ratio: 15/7;
+  width: min(100%, 37.5rem);
+  background-image: url("assets/images/pattern-ticket.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: var(--space-300);
+  display: grid;
+  align-items: start;
+  grid-template-columns: 80% auto;
+  margin-block-start: var(--space-1400);
+
+  @include mq(s) {
+    width: auto;
+    height: 10rem;
+    padding: var(--space-200);
+    padding-block-start: var(--space-250);
+  }
+}
+
+.header {
+  display: grid;
+  gap: var(--space-100) var(--space-150);
+  grid-template-columns: min-content 1fr;
+}
+
+.logo {
+  --size: var(--space-500);
+  width: var(--size);
+  height: var(--size);
+  transform: translateY(var(--space-50));
+
+  @include mq(s) {
+    --size: var(--space-375);
+  }
+}
+
+.title {
+  @include preset("2");
+  color: var(--c-white);
+
+  @include mq(s) {
+    @include preset("2-mobile");
+  }
+}
+
+.date-and-location {
+  @include preset("6");
+  color: var(--c-neutral-300);
+  display: flex;
+  gap: var(--space-200);
+  grid-column: 2 / 3;
+
+  @include mq(s) {
+    @include preset("6-mobile");
+    gap: var(--space-100);
+  }
+}
+
+.person {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: var(--space-100) var(--space-200);
+  place-self: end start;
+  align-items: center;
+  grid-column: 1 / 2;
+
+  @include mq(s) {
+    gap: var(--space-50) var(--space-150);
+  }
+}
+
+.avatar {
+  --size: var(--space-1000);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--space-150);
+  overflow: hidden;
+  grid-row: span 2;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @include mq(s) {
+    --size: var(--space-600);
+    border-radius: var(--space-100);
+  }
+}
+
+.name {
+  @include preset("3");
+  color: var(--c-white);
+  place-self: end start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mq(s) {
+    @include preset("3-mobile");
+  }
+}
+
+.name-small {
+  composes: name;
+  @include preset("5");
+
+  @include mq(s) {
+    font-size: var(--space-150);
+  }
+}
+
+.github {
+  @include preset("5");
+  color: var(--c-neutral-300);
+  grid-column: 2 / 3;
+  display: flex;
+  gap: var(--space-125);
+  place-self: start;
+  align-items: center;
+
+  img {
+    width: var(--space-275);
+    height: var(--space-275);
+  }
+
+  @include mq(s) {
+    @include preset("6-mobile");
+    gap: var(--space-50);
+
+    img {
+      width: var(--space-200);
+      height: var(--space-200);
+    }
+  }
+}
+
+.github-small {
+  composes: github;
+  @include preset("6");
+
+  @include mq(s) {
+    font-size: var(--space-150);
+  }
+}
+
+.number {
+  @include preset("3");
+  color: var(--c-neutral-500);
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  display: grid;
+  place-content: center end;
+  align-self: stretch;
+  padding-inline-end: var(--space-175);
+
+  span {
+    writing-mode: vertical-rl;
+    transform: rotate(0deg);
+  }
+
+  @include mq(s) {
+    @include preset("3-mobile");
+    padding-inline-end: 0;
+  }
+}

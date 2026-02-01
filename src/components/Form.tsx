@@ -1,77 +1,95 @@
-import { useEffect } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { z } from "zod";
+import { useForm, Controller } from "react-hook-form";
+import { schema, type FormFields } from "../validation/ticketGenerator.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "./Input";
+import InputField from "./Input";
+import InputFile from "./InputFile";
 import styles from "./Form.module.scss";
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  github: z.string().min(1, "GitHub is required"),
-});
-
-type FormFields = z.infer<typeof schema>;
+// TYPINGS
+interface PassedProps {
+  onDataSubmit: (data: FormFields) => void;
+}
 
 // COMPONENT
 
-const Form = () => {
+const Form = ({ onDataSubmit }: PassedProps) => {
   const {
     register,
-    setFocus,
     handleSubmit,
+    control,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<FormFields>({
     mode: "onChange",
     resolver: zodResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      github: "",
+      avatar: null,
+    },
   });
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const onSubmit = (data: FormFields) => {
+    onDataSubmit(data);
   };
 
-  useEffect(() => {
-    setFocus("name");
-  }, [setFocus]);
-
   return (
-    <form
-      action=""
-      onSubmit={handleSubmit(onSubmit)}
-      className={styles["form"]}>
-      <Input
-        id="name"
-        label="Full Name"
-        type="text"
-        autoComplete="name"
-        placeholder="Stephen King"
-        registration={register("name", { required: "Name is required" })}
-        error={errors.name?.message}
-      />
-      <Input
-        id="email"
-        label="Email Address"
-        type="email"
-        placeholder="stephenking@lorem.com"
-        autoComplete="email"
-        registration={register("email", { required: "Email is required" })}
-        error={errors.email?.message}
-      />
-      <Input
-        id="github"
-        label="GitHub Username"
-        type="text"
-        placeholder="@stephenking"
-        autoComplete="github"
-        registration={register("github")}
-        error={errors.github?.message}
-      />
-      <button
-        type="submit"
-        className={styles["submit-button"]}>
-        Generate My Ticket
-      </button>
-    </form>
+    <>
+      <h1 className={styles["heading"]}>
+        Your Journey to Coding Conf 2025 Starts Here!
+      </h1>
+      <h2 className={styles["subheading"]}>
+        Secure your spot at next year's biggest coding conference.
+      </h2>
+      <form
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles["form"]}>
+        <Controller
+          name="avatar"
+          control={control}
+          render={({ field, fieldState }) => (
+            <InputFile
+              value={field.value}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+              setError={setError}
+              clearErrors={clearErrors}
+            />
+          )}
+        />
+        <InputField
+          id="name"
+          label="Full Name"
+          type="text"
+          autoComplete="name"
+          registration={register("name")}
+          error={errors.name?.message}
+        />
+        <InputField
+          id="email"
+          label="Email Address"
+          type="email"
+          autoComplete="email"
+          error={errors.email?.message}
+          registration={register("email")}
+        />
+        <InputField
+          id="github"
+          label="GitHub Username"
+          type="text"
+          registration={register("github")}
+          error={errors.github?.message}
+        />
+        <button
+          type="submit"
+          className={styles["submit"]}>
+          Generate My Ticket
+        </button>
+      </form>
+    </>
   );
 };
 

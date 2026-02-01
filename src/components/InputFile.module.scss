@@ -1,0 +1,110 @@
+@use "../styles/utils/" as *;
+
+$input-css: "./Input.module.scss";
+
+.form-control {
+  composes: form-control from $input-css;
+}
+
+.label {
+  @include preset("5");
+  color: var(--c-white);
+}
+
+.icon {
+  width: var(--space-625);
+  height: var(--space-625);
+  background-image: url("/assets/images/icon-upload.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--c-white-10);
+  border: var(--space-12) solid var(--c-neutral-500);
+  border-radius: var(--space-150);
+  -webkit-backdrop-filter: blur(var(--space-50));
+  backdrop-filter: blur(var(--space-50));
+
+  &:hover {
+    box-shadow: 0 2px 4px -2px var(--c-neutral-900);
+  }
+}
+
+.upload {
+  composes: input from $input-css;
+  @include preset("6");
+  display: grid;
+  gap: var(--space-200);
+  padding: var(--space-250);
+  border-style: dashed;
+  justify-items: center;
+  cursor: pointer;
+  height: auto;
+
+  &:hover {
+    .icon {
+      box-shadow: 0 2px 4px -2px var(--c-neutral-900);
+    }
+  }
+}
+
+.upload-error {
+  composes: upload;
+  border-color: var(--c-orange-500);
+}
+
+.upload-processed {
+  composes: upload;
+  cursor: default;
+  display: grid;
+
+  &:hover {
+    background-color: var(--c-white-08);
+  }
+
+  &:focus {
+    outline: var(--space-25) solid var(--c-neutral-500);
+    outline-offset: var(--space-25);
+  }
+}
+
+.explanation {
+  @include preset("7");
+  color: var(--c-neutral-300);
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.preview {
+  composes: icon;
+  background: none;
+  background-color: var(--c-white-10);
+  border: 0;
+  border: var(--space-12) solid var(--c-neutral-500);
+}
+
+.buttons {
+  display: flex;
+  gap: var(--space-100);
+}
+
+.button {
+  @include preset("7");
+  border: 0;
+  cursor: pointer;
+  background-color: var(--c-white-10);
+  text-decoration: underline;
+  text-underline-offset: var(--space-25);
+  color: var(--c-neutral-300);
+  padding-inline: var(--space-100);
+  height: var(--space-300);
+  border-radius: var(--space-50);
+
+  &:hover {
+    background-color: var(--c-white-20);
+  }
+}
+
+.button-change {
+  composes: button;
+  text-decoration: none;
+}

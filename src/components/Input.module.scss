@@ -32,7 +32,7 @@
   }
 }
 
-.error {
-  @include preset("7");
-  color: var(--c-orange-500);
+.input-error {
+  composes: input;
+  border-color: var(--c-orange-500);
 }

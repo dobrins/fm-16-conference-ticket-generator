@@ -18,7 +18,7 @@
 /* Typography */
 
 $preset-styles: (
-  "l": (
+  "1": (
     font-size: var(--space-750),
     font-weight: var(--font-extra-bold),
     line-height: 1.1,
@@ -44,7 +44,7 @@ $preset-styles: (
   ),
   "3": (
     font-size: var(--space-375),
-    font-weight: var(--font-bold),
+    font-weight: var(--font-medium),
     line-height: 1.1,
     letter-spacing: -1px,
   ),
@@ -80,7 +80,7 @@ $preset-styles: (
   ),
   "6": (
     font-size: var(--space-225),
-    font-weight: var(--font-medium),
+    font-weight: var(--font-regular),
     line-height: 1.2,
     letter-spacing: 0px,
   ),
@@ -118,7 +118,11 @@ $preset-styles: (
   box-sizing: content-box;
   padding-inline: var(--padding-inline);
 
+  @include mq(m) {
+    --padding-inline: var(--space-400);
+  }
+
   @include mq(s) {
-    --padding-inline: var(--space-300);
+    --padding-inline: var(--space-200);
   }
 }
